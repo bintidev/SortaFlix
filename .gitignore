@@ -8,3 +8,4 @@ tailwindcss
 *.pyc
 *.pyo
 *.pyd
+*.exe
