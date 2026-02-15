@@ -4,6 +4,7 @@ db.sqlite3
 media/
 staticfiles/
 venv/
+tailwindcss
 *.pyc
 *.pyo
 *.pyd
