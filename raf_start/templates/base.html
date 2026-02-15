@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>RentAFlix App</title>{% endblock title %}
+    {% block favicon %}
+    <link rel="shortcut icon" href="{% static 'img/favicon-32x32.png' %}" type="image/x-icon">
+    {% endblock favicon %}
+
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    {% endblock css %}
+
+    {% block fonts %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Manrope:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    {% endblock fonts %}
+</head>
+
+<body class="bg-[#1a1a2e]">
+
+    <div class="text-sm text-white w-full">
+        <nav
+            class="relative h-[70px] flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 bg-gradient-to-r from-violet-500 via-[#6c63ff] to-[#4ecdc4] text-gray-900 transition-all shadow">
+
+            <a href="/dashboard/">
+                <img src="{% static 'img/rentaflix_logo_white.png' %}" alt="logo horizontal" class="w-40">
+            </a>
+            <ul class="hidden md:flex items-center space-x-8 md:pl-28 text-white font-[Manrope]">
+
+                {% if user.is_authenticated %}
+
+                <li><a href="/dashboard/">Dashboard</a></li>
+                <li><a href="/flicks/">Flicks</a></li>
+                <li><a href="/platforms/">Platforms</a></li>
+                <li><a href="/availabilities/">Availability</a></li>
+
+                {% endif %}
+
+            </ul>
+
+            {% if user.is_authenticated %}
+
+            <button onclick="window.location.href='/signout/'"
+                class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
+                Out</button>
+
+            {% else %}
+
+            <div>
+                <button onclick="window.location.href='/signin/'"
+                    class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
+                    In</button>
+
+                <button onclick="window.location.href='/signup/'"
+                    class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
+                    Up</button>
+            </div>
+
+            {% endif %}
+
+            <button aria-label="menu-btn" type="button"
+                class="menu-btn inline-block md:hidden active:scale-90 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                    <path
+                        d="M3 7a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2zm0 7a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2zm0 7a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2z" />
+                </svg>
+            </button>
+
+            <div class="mobile-menu absolute top-[70px] left-0 w-full bg-white shadow-sm p-6 hidden md:hidden">
+                <ul class="flex flex-col space-y-4 text-lg">
+
+                    {% if user.is_authenticated %}
+
+                    <li><a href="/dashboard/">Dashboard</a></li>
+                    <li><a href="/flicks/">Flicks</a></li>
+                    <li><a href="/platforms/">Platforms</a></li>
+                    <li><a href="/availabilities/">Availability</a></li>
+
+                    {% else %}
+
+                    <div>
+                        <button onclick="window.location.href='/signin/'"
+                            class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
+                            In</button>
+
+                        <button onclick="window.location.href='/signup/'"
+                            class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
+                            Up</button>
+                    </div>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        const menuButtons = document.querySelectorAll('.menu-btn');
+        const mobileMenus = document.querySelectorAll('.mobile-menu');
+
+        menuButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                mobileMenus[index].classList.toggle('hidden');
+            });
+        });
+
+    </script>
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+
+</html>

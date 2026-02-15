@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    {% block title %}<title>RentaFlix</title>{% endblock %}
+
+    {% block favicon %}
+    <link rel="shortcut icon" href="{% static 'img/favicon-32x32.png' %}" type="image/x-icon">
+    {% endblock favicon %}
+
+    {% block fonts %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Manrope:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    {% endblock fonts %}
+</head>
+
+<body class="bg-[#0F0F1E]">
+    <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
+        <div class="relative py-3 sm:max-w-2xl sm:mx-auto w-full px-4">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-[#6C63FF] to-[#4ECDC4] shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+            </div>
+            <div class="relative px-4 py-10 bg-[#4E4E81] shadow-lg sm:rounded-3xl sm:p-20 font-[Manrope]">
+                <div class="text-center pb-6">
+                    {% block heading %}
+                    <h1 class="text-3xl font-bold text-white mb-2">Contact Us!</h1>
+                    <p class="text-gray-400">
+                        Fill up the form below to send us a message.
+                    </p>
+                    {% endblock heading %}
+                </div>
+
+                {% block form_fields %}
+                {% endblock form_fields %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

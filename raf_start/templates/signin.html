@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% extends 'base.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Sign In</title>{% endblock title %}
+</head>
+
+<body>
+
+    {% block content %}
+    <form action="/signin/" method="post">
+        {% csrf_token %} <!--comprobación de token de seguridad para evitar ataques CSRF-->
+
+        <h1 class="text-xl text-indigo-600">Sign In</h1>
+        {% if error %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            {{ error }}
+        </div>
+        {% endif %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Sign In</button>
+    </form>
+    {% endblock content %}
+
+</body>
+
+</html>

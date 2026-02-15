@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% extends 'home.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Signup to RentaFlix</title>{% endblock title %}
+    {% block favicon %}
+    <link rel="shortcut icon" href="../assets/img/rentaflix_log_minimal.png" type="image/x-icon">{% endblock favicon %}
+</head>
+
+<body>
+    {% block content %}
+    <form action="/signup/" method="post">
+        {% csrf_token %} <!--comprobación de token de seguridad para evitar ataques CSRF-->
+
+        <h1 class="text-xl text-indigo-600">Signup</h1>
+        {% if error %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            {{ error }}
+        </div>
+        {% endif %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Sign Up</button>
+    </form>
+    {% endblock content %}
+</body>
+
+</html>
