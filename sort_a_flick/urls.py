@@ -31,6 +31,7 @@ urlpatterns = [
     path('flicks/add/', views.add_flick, name='add_flick'),
     path('flicks/<int:flick_id>/detail/', views.flick_detail, name='flick_detail'),
     path('flicks/<int:flick_id>/update/', views.flick_update, name='flick_update'),
+    path('flicks/<int:flick_id>/delete/', views.flick_delete, name='flick_delete'),
     path('platforms/', views.platforms, name='platforms'),
     path('platforms/add/', views.add_platform, name='add_platform'),
     path('platforms/<int:platform_id>/detail/', views.platform_detail, name='platform_detail'),

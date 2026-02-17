@@ -120,4 +120,6 @@ STATICFILES_DIRS = [BASE_DIR / "sort_a_flick" / "static"]
 
 # Media files (uploads)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # ← Apunta a la carpeta media en la raíz
+MEDIA_ROOT = BASE_DIR / 'media/'  # ← Apunta a la carpeta media en la raíz
+
+LOGIN_URL = '/signin'

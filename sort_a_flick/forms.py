@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from saf_start.models import Flick, Platform, Availability
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-class UserCreationForm():
+class SigninForm(UserCreationForm):
     class Meta:
         fields = ['username', 'password']
 
@@ -19,7 +19,7 @@ class UserCreationForm():
             }),
         }
 
-class AuthenticationForm():
+class SignupForm(AuthenticationForm):
     class Meta:
         fields = ['username', 'password1', 'password2']
 
