@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Flicks</title>{% endblock title %}
+</head>
+
+<body>
+
+    {% block content %}
+    <div class="container mx-auto px-4 py-8 font-[Manrope]">
+        <h1 class="text-4xl font-bold mb-6 text-white font-[Outfit]">Flicks</h1>
+        <p class="text-gray-600 mb-4">List of all your flicks.</p>
+        <button onclick="location.href='/flicks/add/'"
+            class="bg-[#6c63ff] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(83_74_255)]">Add
+            New Flick</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {% for flick in flicks %}
+            <div
+                class="bg-gradient-to-r from-violet-500 via-[#6c63ff] to-[#4ecdc4] rounded-lg p-1 transition duration-300 ease-in-out hover:scale-[1.02] hover:shadow-[0_0_12px_rgba(255_255_255)]">
+                <div class="bg-[#e8e8f0] rounded-lg shadow p-4">
+                    <img src="{{ flick.cover_image.url }}" alt="{{ flick.title }} cover"
+                        class="w-full h-48 object-contain rounded mb-4">
+                    <h2 class="text-xl font-semibold">{{ flick.title }}</h2>
+                    <p class="text-gray-600">{% for genre in flick.genres.all %}
+                        {{ genre.name }}
+                        {% endfor %}
+                    </p>
+                    <p class="text-gray-600 mt-2">Status: {{ flick.status }}</p>
+                    <p class="text-gray-800 mt-2">{{ flick.synopsis|truncatechars:100 }}</p>
+
+                    <div class="mt-6">
+                        <a href="/flicks/{{ flick.id }}/detail/"
+                            class="bg-[#4ecdc4] py-2 px-4 mr-2 rounded-lg text-white transition duration-300 hover:bg-[#3ba39d]">View
+                            Details</a>
+                        <a href="/flicks/{{ flick.id }}/update/"
+                            class="bg-transparent py-2 px-4 rounded-lg text-[#5d54d9] border-1 border-[#5d54d9] transition duration-300 hover:text-white border hover:border-transparent hover:bg-[#5d54d9]">Edit
+                            Flick</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock content %}
+
+</body>
+
+</html>

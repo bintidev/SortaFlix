@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% extends 'base.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Availability</title>{% endblock %}
+</head>
+
+<body>
+
+    {% block content %}
+    <div class="container mx-auto px-4 py-8 font-[Manrope]">
+        <h1 class="text-4xl font-bold mb-6 text-white font-[Outfit]">Availability</h1>
+        <p class="text-gray-600 mb-4">This page will show the availability status of all flicks and platforms.</p>
+        <button onclick="window.location.href='/availabilities/add/'"
+            class="bg-[#6c63ff] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(83_74_255)]">Add
+            Availability</button>
+        <!-- Aquí puedes agregar la lógica para mostrar la disponibilidad de los flicks y plataformas -->
+    </div>
+    <div class="container mx-auto px-4 py-8 font-[Manrope]">
+        <h1 class="text-4xl font-bold mb-6 text-white font-[Outfit]">Platforms</h1>
+        <p class="text-gray-600 mb-4">This page will show the platforms available for renting flicks.</p>
+        <button onclick="location.href='/platforms/add/'"
+            class="bg-[#6c63ff] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(83_74_255)]">Add
+            New Platform</button>
+
+        <div class="w-full mt-8">
+            <div class="relative overflow-x-auto bg-neutral-primary shadow-xs rounded-base">
+                <table class="table w-full rounded-tl-lg rounded-tr-lg">
+                    <!-- head -->
+                    <thead class="block md:table-header-group border-b-3 border-[#3dd9d0]">
+                        <tr class="block md:table-row bg-[#eaeaf1]">
+                            <th class="block md:table-cell px-6 py-3 text-black font-semibold">Platform</th>
+                            <th class="block md:table-cell px-6 py-3 text-black font-semibold">Delivery Type</th>
+                            <th class="block md:table-cell px-6 py-3 text-black font-semibold">Areas Served</th>
+                            <th class="block md:table-cell px-6 py-3 text-black font-semibold">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- row 1 -->
+                        {% for platform in platforms %}
+                        {% if platform == None %}
+                        <tr class="block md:table-row">
+                            <td colspan="4" class="text-center text-gray-600 py-4">No platforms found.</td>
+                        </tr>
+                        {% else %}
+                        <tr class="block md:table-row">
+                            <td class="block md:table-cell">
+                                <div class="flex items-center gap-3">
+                                    <div class="avatar">
+                                        <div class="bg-base-content/10 h-10 w-10 rounded-md">
+                                            <img src="{{ platform.logo.url }}" alt="platform logo" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm opacity-50">{{ platform.name }}</div>
+                                        <div class="font-medium">{{ platform.parent }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="block md:table-cell">{{ platform.delivery_type }}</td>
+                            <td class="block md:table-cell">
+                                <div class="flex items-center">
+                                    <span class="badge badge-primary badge-soft me-2 rounded-full p-1">
+                                        <span class="icon-[tabler--device-mobile]"></span>
+                                    </span>
+                                    Phone
+                                </div>
+                            </td>
+                            <td class="block md:table-cell">${{ platform.price }}</td>
+                            <td class="block md:table-cell">
+                                <button class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                        class="icon-[tabler--pencil] size-5"></span></button>
+                                <button class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                        class="icon-[tabler--trash] size-5"></span></button>
+                                <button class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                        class="icon-[tabler--dots-vertical] size-5"></span></button>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+</body>
+
+</html>

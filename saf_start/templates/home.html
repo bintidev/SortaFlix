@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% extends 'base.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Welcome</title>{% endblock title %}
+</head>
+
+<body>
+    {% block content %}
+    <div class="min-h-screen flex items-center justify-center align-center">
+        <div>
+            <img src="{ static 'img/logo_horizontal_english_blanco.png' }" alt="logo" class="w-82">
+            <h1
+                class="text-7xl font-bold mb-4 font-[Outfit] bg-gradient-to-r from-violet-500 via-[#6c63ff] to-[#4ecdc4] bg-clip-text text-transparent">
+                Sort-a-Flick
+            </h1>
+            <p class="text-gray-600">
+                Los estilos se están aplicando correctamente.
+            </p>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="window.location.href='/signup/'">Sign
+                Up</button>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="window.location.href='/signin/'">Sign
+                In</button>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>
