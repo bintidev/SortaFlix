@@ -14,7 +14,7 @@
 {% endblock heading %}
 
 {% block form_fields %}
-<form method="post" action="/flicks/add/" class="space-y-6">
+<form method="post" action="/flicks/add/" class="space-y-6" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% for field in flick_form %}

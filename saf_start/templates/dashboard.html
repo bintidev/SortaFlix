@@ -1,8 +1,9 @@
+{% extends 'home.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {% extends 'home.html' %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}<title>Dashboard</title>{% endblock title %}
@@ -14,7 +15,7 @@
         <div class="container mx-auto px-4 py-8">
             <div class="text-center mb-8">
                 <h1 class="text-6xl font-bold mb-6 text-white font-[Outfit]">Welcome {{ user.username }}</h1>
-                <img src="{ % static 'img/logo_horizontal_english_blanco.png' % }" alt="logo" class="w-[500px]">
+                <img src="{% static 'img/logo_horizontal_english_blanco.png' %}" alt="logo" class="size-[150px] text-center">
                 <p class="text-gray-300 font-[Manrope]">Welcome to the Rent-A-Flick dashboard! Here you can manage your
                     flicks,
                     platforms, and
@@ -40,15 +41,15 @@
                         <span>{{ total }}</span>
                     </h3>
                     <div class="grid-cols-1 lg:grid-cols-3 gap-6 flex justify-center align-center">
-                        <div class="bg-black-500/70 py-4 px-6 text-lg text-gray-200">
+                        <div class="bg-black-500 py-4 px-6 text-lg text-gray-200">
                             <h3>Watched</h3>
                             <p>{{ watched }}</p>
                         </div>
-                        <div class="bg-black-500/70 py-4 px-6 text-lg text-gray-200">
+                        <div class="bg-black-500 py-4 px-6 text-lg text-gray-200">
                             <h3>Watching</h3>
                             <p>{{ watching }}</p>
                         </div>
-                        <div class="bg-black-500/70 py-4 px-6 text-lg text-gray-200">
+                        <div class="bg-black-500 py-4 px-6 text-lg text-gray-200">
                             <h3>Watch</h3>
                             <p>{{ watch }}</p>
                         </div>

@@ -1,44 +1,50 @@
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth.models import User
 from saf_start.models import Flick, Platform, Availability
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-class SigninForm(UserCreationForm):
+FIELD_CLASS = 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none'
+
+class SignupForm(UserCreationForm):
+
     class Meta:
-        fields = ['username', 'password']
-
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
-                'placeholder': 'Username'
-            }),
-
-            'password': forms.PasswordInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
-                'placeholder': 'Password'
-            }),
-        }
-
-class SignupForm(AuthenticationForm):
-    class Meta:
+        model = User
         fields = ['username', 'password1', 'password2']
 
         widgets = {
             'username': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Username'
-            }),
-
-            'password1': forms.PasswordInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
-                'placeholder': 'Password'
-            }),
-
-            'password2': forms.PasswordInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
-                'placeholder': 'Password'
             })
         }
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget = forms.PasswordInput(attrs={
+            'class': FIELD_CLASS,
+            'placeholder': 'Password'
+        })
+        self.fields['password2'].widget = forms.PasswordInput(attrs={
+            'class': FIELD_CLASS,
+            'placeholder': 'Confirm password'
+        })
+
+class SigninForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].widget = forms.TextInput(attrs={
+            'class': FIELD_CLASS,
+            'placeholder': 'Username'
+        })
+        self.fields['password'].widget = forms.PasswordInput(attrs={
+            'class': FIELD_CLASS,
+            'placeholder': 'Password'
+        })
     
 
 
@@ -51,22 +57,22 @@ class FlickForm(ModelForm):
         # estilos de campos personalizados
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Movie title'
             }),
 
             'director': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Director name'
             }),
 
             'year': forms.NumberInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Year of release'
             }),
             
             'description': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none resize-none',
+                'class': FIELD_CLASS,
                 'rows': 4,
                 'placeholder': 'Movie description'
             }),
@@ -76,7 +82,7 @@ class FlickForm(ModelForm):
             }),
 
             'rating': forms.NumberInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Rating (0-5)',
                 'step': 0.1,
                 'min': 0,
@@ -84,7 +90,7 @@ class FlickForm(ModelForm):
             }),
                         
             'synopsis': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none resize-none',
+                'class': FIELD_CLASS,
                 'rows': 4,
                 'placeholder': 'Movie synopsis'
             }),
@@ -107,7 +113,7 @@ class PlatformForm(ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Platform name'
             }),
 
@@ -121,22 +127,22 @@ class PlatformForm(ModelForm):
             }),
 
             'parent': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Parent company (optional)'
             }),
 
             'areas_served': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Areas served (optional)'
             }),
 
             'url': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'URL'
             }),
 
             'description': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none resize-none',
+                'class': FIELD_CLASS,
                 'rows': 4,
                 'placeholder': 'Platform description'
             }),
@@ -158,7 +164,7 @@ class AvailabilityForm(ModelForm):
             }),
 
             'price': forms.NumberInput(attrs={
-                'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none',
+                'class': FIELD_CLASS,
                 'placeholder': 'Price (optional)',
                 'step': 0.01,
                 'min': 0

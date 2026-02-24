@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm # formularios incorporados de Django para manejar el registro y autenticación de usuarios
 from django.contrib.auth.models import User # modelo de usuario incorporado de Django para manejar la autenticación y gestión de usuarios
 from django.contrib.auth import login, logout, authenticate # crea una sesión de usuario después de un registro exitoso
 from django.db import IntegrityError # captura errores de integridad de la base de datos, como intentar crear un usuario con un nombre de usuario que ya existe
@@ -142,7 +141,7 @@ def add_flick(request):
     
     else:
         try:
-            flick_form = FlickForm(request.POST)
+            flick_form = FlickForm(request.POST, request.FILES)
             new_flick = flick_form.save(commit=False) # crea una instancia del modelo Flick pero no la guarda en la base de datos aún
             new_flick.user = request.user # asigna el usuario actual como propietario de la película
             new_flick.save() # guarda la nueva película en la base de datos
@@ -157,7 +156,7 @@ def add_flick(request):
 # vista de detalle de película   
 @login_required
 def flick_detail(request, flick_id):
-    flick = get_object_or_404(Flick, pk=id) # obtiene la película con el ID especificado
+    flick = get_object_or_404(Flick, pk=flick_id) # obtiene la película con el ID especificado
     return render(request, 'flick_detail.html', {'flick': flick}) # renderiza la plantilla de detalle de película con la película obtenida
 
 # vista de actualización de película

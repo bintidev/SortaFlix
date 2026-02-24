@@ -17,10 +17,10 @@
         <button onclick="location.href='/flicks/add/'"
             class="bg-[#6c63ff] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(83_74_255)]">Add
             New Flick</button>
-        <div class="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-2 mt-6">
+        <div class="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-4 mt-6">
             {% for flick in flicks %}
             <div>
-                    <a href="/flicks/{{ flick.id }}/detail/">
+                    <a href="{% url 'flick_detail' flick.id %}">
                         <img src="{{ flick.cover_image.url }}" alt="{{ flick.title }} cover"
                             class="w-auto h-48 mb-4 transition duration-300 ease-in-out hover:scale-[1.05] hover:shadow-[0_0_12px_rgba(255_255_255)]">
                         <h2 class="text-xl text-white font-semibold">{{ flick.title }}</h2>
