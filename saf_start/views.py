@@ -20,7 +20,7 @@ def signout(request):
 def signin(request):
 
     if request.method == 'GET': # consulta de datos
-        return render(request, 'signin.html', {
+        return render(request, 'userauth/signin.html', {
             'form': SigninForm
         }) # muestra un formulario vacío para GET
     
@@ -29,7 +29,7 @@ def signin(request):
         user = authenticate(request, username = request.POST['username'], password = request.POST['password']) # autentica al usuario con los datos del formulario
 
         if user is None:
-            return render(request, 'signin.html', {
+            return render(request, 'userauth/signin.html', {
                 'form': SigninForm,
                 'error': "Error. Username or password is incorrect."
             })
@@ -42,7 +42,7 @@ def signin(request):
 def signup(request):
 
     if request.method == 'GET': # consulta de datos
-        return render(request, 'signup.html', {
+        return render(request, 'userauth/signup.html', {
             'form': SignupForm
         }) # muestra un formulario vacío para GET
     
@@ -58,12 +58,12 @@ def signup(request):
                 return redirect('dashboard') # redirige al dashboard después de un registro exitoso
             
             except IntegrityError: # renderiza de vuelta al formulario de registro con un mensaje de error si el nombre de usuario ya existe
-                return render(request, 'signup.html', {
+                return render(request, 'userauth/signup.html', {
                     'form': SignupForm,
                     'error': "Error. Username already exists."
                 }) # muestra un formulario vacío para GET
             
-        return render(request, 'signup.html', { # renderiza de vuelta al formulario de registro con un mensaje de error si las contraseñas no coinciden
+        return render(request, 'userauth/signup.html', { # renderiza de vuelta al formulario de registro con un mensaje de error si las contraseñas no coinciden
             'form': SignupForm,
             'error': "Error. Passwords do not match."
         }) # muestra un formulario vacío para GET
@@ -130,14 +130,14 @@ def dashboard(request):
 @login_required
 def flicks(request):
     flicks = Flick.objects.filter(user = request.user) # obtiene todas las películas asociadas al usuario actual
-    return render(request, 'flicks.html', {'flicks': flicks}) # renderiza la plantilla de la lista de películas con las películas del usuario actual
+    return render(request, 'flick/flicks.html', {'flicks': flicks}) # renderiza la plantilla de la lista de películas con las películas del usuario actual
 
 # vista de creación de película
 @login_required
 def add_flick(request):
 
     if request.method == 'GET':
-        return render(request, 'add_flick.html', {'flick_form': FlickForm})
+        return render(request, 'flick/add_flick.html', {'flick_form': FlickForm})
     
     else:
         try:
@@ -145,10 +145,10 @@ def add_flick(request):
             new_flick = flick_form.save(commit=False) # crea una instancia del modelo Flick pero no la guarda en la base de datos aún
             new_flick.user = request.user # asigna el usuario actual como propietario de la película
             new_flick.save() # guarda la nueva película en la base de datos
-            return redirect('flicks')
+            return redirect('flick/flicks')
         
         except ValueError:
-            return render(request, 'add_flick.html', {
+            return render(request, 'flick/add_flick.html', {
                 'flick_form': FlickForm,
                 'error': "Error. Invalid data entered."
             })
@@ -157,7 +157,7 @@ def add_flick(request):
 @login_required
 def flick_detail(request, flick_id):
     flick = get_object_or_404(Flick, pk=flick_id) # obtiene la película con el ID especificado
-    return render(request, 'flick_detail.html', {'flick': flick}) # renderiza la plantilla de detalle de película con la película obtenida
+    return render(request, 'flick/flick_detail.html', {'flick': flick}) # renderiza la plantilla de detalle de película con la película obtenida
 
 # vista de actualización de película
 @login_required
@@ -166,7 +166,7 @@ def flick_update(request, flick_id):
 
     if request.method == 'GET':
         flick_form = FlickForm(instance=flick) # crea un formulario prellenado con los datos de la película
-        return render(request, 'flick_update.html', {'flick_form': flick_form, 'flick': flick})
+        return render(request, 'flick/flick_update.html', {'flick_form': flick_form, 'flick': flick})
     
     else:
         try:
@@ -175,7 +175,7 @@ def flick_update(request, flick_id):
             return redirect('flicks')
         
         except ValueError:
-            return render(request, 'flick_update.html', {
+            return render(request, 'flick/flick_update.html', {
                 'flick_form': FlickForm(instance=flick),
                 'flick': flick,
                 'error': "Error. Invalid data entered."
