@@ -76,55 +76,18 @@ def dashboard(request):
 
     # cantidad total flicks de un usuario concreto
     def total():
-
         return Flick.objects.filter(user_id=request.user.id).count()
     
-    # total flicks vistos por un usuario concreto
-    def total_watched():
-        w = 0
-        if total() > 1:
-            obj = total() - 1
-        else:
-            obj = total() + 1
+    def flicks_per_status(status):
+        count = 0
 
-        for w in range(obj):
-            if flicks[obj].status == 'Watched' and obj >= 0:
-                w += 1
-            obj -= 1
-
-        return w
+        for flick in flicks:
+            if flick.status == status:
+                count += 1
+        return count
     
-    # total flicks siendo vistos por un usuario concreto
-    def total_watching():
-        w = 0
-        if total() > 1:
-            obj = total() - 1
-        else:
-            obj = total() + 1
 
-        for w in range(obj):
-            if flicks[obj].status == 'Watching' and obj >= 0:
-                w += 1
-            obj -= 1
-
-        return w
-    
-    # total flicks por ver de un usuario concreto
-    def total_watch():
-        w = 0
-        if total() > 1:
-            obj = total() - 1
-        else:
-            obj = total() + 1
-
-        for w in range(obj):
-            if flicks[obj].status == 'Watch' and obj >= 0:
-                w += 1
-            obj -= 1
-
-        return w
-
-    return render(request, 'dashboard.html', {'total': total, 'watched': total_watched, 'watching': total_watching, 'watch': total_watch})
+    return render(request, 'dashboard.html', {'total': total, 'watched': flicks_per_status('Watched'), 'watching': flicks_per_status('Watching'), 'watch': flicks_per_status('Watch')})
 
 # vista de la lista de películas
 @login_required

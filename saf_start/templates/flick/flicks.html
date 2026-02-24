@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,8 +23,13 @@
                 {% for flick in flicks %}
                 <div>
                     <a href="{% url 'flick_detail' flick.id %}">
+                        {% if flick.cover_image %}
                         <img src="{{ flick.cover_image.url }}" alt="{{ flick.title }} cover"
                             class="w-auto h-48 mb-4 transition duration-300 ease-in-out hover:scale-[1.05] hover:shadow-[0_0_12px_rgba(255_255_255)]">
+                        {% else %}
+                        <img src="{% static 'img/default.png' %}" alt="{{ flick.title }} cover"
+                            class="w-auto h-48 mb-4 transition duration-300 ease-in-out hover:scale-[1.05] hover:shadow-[0_0_12px_rgba(255_255_255)]">
+                        {% endif %}
                         <h2 class="text-xl text-white font-semibold">{{ flick.title }}</h2>
                         <p class="text-gray-400">{{ flick.year }} · {{ flick.duration }} min
                         </p>
