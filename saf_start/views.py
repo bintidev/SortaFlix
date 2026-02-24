@@ -82,10 +82,10 @@ def dashboard(request):
     # total flicks vistos por un usuario concreto
     def total_watched():
         w = 0
-        if total() == 1:
-            obj = total() + 1
-        else:
+        if total() > 1:
             obj = total() - 1
+        else:
+            obj = total() + 1
 
         for w in range(obj):
             if flicks[obj].status == 'Watched' and obj >= 0:
@@ -97,10 +97,10 @@ def dashboard(request):
     # total flicks siendo vistos por un usuario concreto
     def total_watching():
         w = 0
-        if total() == 1:
-            obj = total() + 1
-        else:
+        if total() > 1:
             obj = total() - 1
+        else:
+            obj = total() + 1
 
         for w in range(obj):
             if flicks[obj].status == 'Watching' and obj >= 0:
@@ -112,10 +112,10 @@ def dashboard(request):
     # total flicks por ver de un usuario concreto
     def total_watch():
         w = 0
-        if total() == 1:
-            obj = total() + 1
-        else:
+        if total() > 1:
             obj = total() - 1
+        else:
+            obj = total() + 1
 
         for w in range(obj):
             if flicks[obj].status == 'Watch' and obj >= 0:
@@ -145,7 +145,7 @@ def add_flick(request):
             new_flick = flick_form.save(commit=False) # crea una instancia del modelo Flick pero no la guarda en la base de datos aún
             new_flick.user = request.user # asigna el usuario actual como propietario de la película
             new_flick.save() # guarda la nueva película en la base de datos
-            return redirect('flick/flicks')
+            return redirect('flicks')
         
         except ValueError:
             return render(request, 'flick/add_flick.html', {

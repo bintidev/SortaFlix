@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}<title>RentAFlix App</title>{% endblock title %}
     {% block favicon %}
-    <link rel="shortcut icon" href="{% static 'img/favicon_english_blanco.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon_english_color.png' %}" type="image/x-icon">
     {% endblock favicon %}
 
     {% block css %}
@@ -51,18 +51,6 @@
                 class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
                 Out</button>
 
-            {% else %}
-
-            <div>
-                <button onclick="window.location.href='/signin/'"
-                    class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
-                    In</button>
-
-                <button onclick="window.location.href='/signup/'"
-                    class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
-                    Up</button>
-            </div>
-
             {% endif %}
 
             <button aria-label="menu-btn" type="button"
@@ -83,21 +71,10 @@
                     <li><a href="/platforms/">Platforms</a></li>
                     <li><a href="/availabilities/">Availability</a></li>
 
-                    {% else %}
-
-                    <div>
-                        <button onclick="window.location.href='/signin/'"
-                            class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
-                            In</button>
-
-                        <button onclick="window.location.href='/signup/'"
-                            class="md:inline hidden bg-white hover:bg-gray-50 border border-gray-300 ml-20 px-9 py-2 rounded-full active:scale-95 transition-all font-[Manrope]">Sign
-                            Up</button>
-                    </div>
-
-                    {% endif %}
-
                 </ul>
+                
+                {% endif %}
+                
             </div>
         </nav>
     </div>
