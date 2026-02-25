@@ -52,7 +52,7 @@ class SigninForm(AuthenticationForm):
 class FlickForm(ModelForm):
     class Meta:
         model = Flick
-        fields = ['cover_image', 'title', 'director', 'year', 'genres', 'rating', 'synopsis', 'status']
+        fields = ['cover_image', 'title', 'director', 'year', 'genres', 'rating', 'duration', 'synopsis', 'status']
 
         # estilos de campos personalizados
         widgets = {
@@ -87,6 +87,11 @@ class FlickForm(ModelForm):
                 'step': 0.1,
                 'min': 0,
                 'max': 10
+            }),
+
+            'duration': forms.NumberInput(attrs={
+                'class': FIELD_CLASS,
+                'placeholder': 'In minutes'
             }),
                         
             'synopsis': forms.Textarea(attrs={
