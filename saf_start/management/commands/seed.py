@@ -50,7 +50,7 @@ class Command(BaseCommand):
         sharperdanaknife.save()
 
         
-        whosiwolvie = User.objects.create(username='whoiswolvie', password='bubwudah3lly')
+        whosiwolvie = User.objects.create(username='whoiswolvie')
         whosiwolvie.set_password('bubwudah3lly')
         whosiwolvie.save()
 
