@@ -19,7 +19,7 @@ class Flick(models.Model):
 
     id = models.AutoField(primary_key=True, verbose_name="Flick ID")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cover_image = models.ImageField(upload_to='covers/', verbose_name="Cover Image", default='covers/default.jpg', null=True, blank=True)
+    cover_image = models.ImageField(upload_to='covers/', verbose_name="Cover Image", default='covers/default.png', null=True, blank=True)
     title = models.CharField(max_length=100, verbose_name="Title", null=False)
     director = models.CharField(max_length=100, verbose_name="Director", default="Unknown", null=True, blank=True)
     year = models.IntegerField(verbose_name="Year", default=2000, null=False)
