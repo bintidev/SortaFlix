@@ -6,7 +6,7 @@ SortaFlix is a small Django app to keep track of your movies, the platforms wher
 
 <p align='center'>
 
-[🇪🇸 README Spanish version]('README.md')
+[🇪🇸 README Spanish version](README.md)
 
 </p>
 
