@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>Eliminar disponibilidad — SortaFlix</title>{% endblock %}
+
+{% block content %}
+
+<!--
+    Página de confirmación de borrado de una entrada de disponibilidad.
+-->
+
+<!-- Overlay oscuro -->
+<div class="fixed inset-0 z-50 flex items-center justify-center px-4" style="background: rgba(9, 9, 20, 0.85);">
+
+    <!-- Cuadro del modal -->
+    <div class="w-full max-w-sm bg-[#0F0F1E] border border-gray-700 rounded-lg overflow-x-hidden font-[Manrope]">
+
+        <!-- Franja de acento -->
+        <div class="h-px w-full bg-gradient-to-r from-[#6C63FF] to-[#4ECDC4]"></div>
+
+        <div class="p-8">
+
+            <!-- Icono de advertencia -->
+            <div
+                class="flex items-center justify-center w-10 h-11 rounded-full mx-auto mb-6 bg-red-500/20 border border-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="#f87171"
+                    stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73
+                             0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898
+                             0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                </svg>
+            </div>
+
+            <!-- Pregunta -->
+            <h2 class="font-[Outfit] font-bold text-white text-xl text-center mb-2">
+                Delete this entry?
+            </h2>
+
+            <!-- Descripción con flix y plataforma involucrados -->
+            <p class="text-sm text-center text-gray-600 mb-2">
+                You are about to delete an availability entry for
+            </p>
+            <p class="font-[Outfit] font-semibold text-white text-center">
+                {{ availability.flix.title }}
+            </p>
+            <p class="text-sm text-center text-gray-600 mb-6">
+                in <span class="text-[#6C63FF] font-semibold">{{ availability.platform.name }}</span>
+            </p>
+            <p class="text-xs text-center text-gray-700 mb-8">Esta acción no se puede deshacer.</p>
+
+            <!-- Botones -->
+            <div class="flex gap-3">
+
+                <!--
+                    Confirmar: POST a availability_delete.
+                    Django borra la entrada y redirige a /availabilities/.
+                -->
+                <form method="post" action="{% url 'availability_delete' availability.id %}" class="flex-1">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="w-full text-sm font-semibold text-white py-3 rounded
+                                   bg-gray-800 hover:bg-gray-700 transition-colors cursor-pointer border-0 font-[Manrope]">
+                        Delete
+                    </button>
+                </form>
+
+                <!--
+                    Cancelar: enlace normal al listado. Sin JS, sin formulario.
+                -->
+                <a href="{% url 'availabilities' %}" class="flex-1 flex items-center justify-center text-sm font-semibold
+                          text-gray-400 border border-gray-700 rounded
+                          hover:text-white hover:border-2 transition-colors no-underline font-[Manrope]">
+                    Cancel
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contenido de la entrada visible de fondo -->
+<div class="px-6 py-10 font-[Manrope] opacity-50" style="max-width: 1200px; margin: 0 auto;">
+    <div>
+        <p class="text-xs uppercase text-gray-700 mb-2 font-[Manrope]" style="letter-spacing: 0.2em;">Entrada de
+            disponibilidad</p>
+
+        <p class="font-[Outfit] font-bold text-white text-3xl mb-2">
+            {{ availability.flix.title }}
+        </p>
+
+        <p class="text-sm text-gray-600">
+            {{ availability.platform.name }}
+            {% if availability.price %}
+            · <span class="text-[#6C63FF]">${{ availability.price }}</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+{% endblock content %}

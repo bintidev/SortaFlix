@@ -1,0 +1,80 @@
+{% extends 'form_base.html' %}
+
+{% block title %}<title>Edit {{ flix.title }} — RentAFlix</title>{% endblock %}
+
+{% block heading %}
+<!-- Info card del flix -->
+<div style="display:flex; align-items:flex-start; gap:1rem; padding-bottom:1.5rem; margin-bottom:1.75rem; border-bottom:1px solid #161628;">
+    {% if flix.cover_image %}
+    <img src="{{ flix.cover_image.url }}" alt="{{ flix.title }}"
+         style="width:48px; height:70px; object-fit:cover; border-radius:4px; flex-shrink:0;">
+    {% else %}
+    <div style="width:48px; height:70px; border-radius:4px; background:#13131f; flex-shrink:0;"></div>
+    {% endif %}
+    <div style="min-width:0;">
+        <h2 class="font-[Outfit] font-bold text-white"
+            style="font-size:1.3rem; letter-spacing:-0.03em; line-height:1.1; margin-bottom:0.3rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            {{ flix.title }}
+        </h2>
+        <p class="font-[Manrope] text-xs" style="color:#2a3548; margin-bottom:0.65rem;">
+            {% if flix.director %}{{ flix.director }} · {% endif %}{{ flix.year }} · {{ flix.duration }} min{% if flix.rating %} · ⭐ {{ flix.rating }}{% endif %}
+        </p>
+        <!-- Pills de género con paleta de 5 colores rotativos -->
+        <div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:0.65rem;">
+            {% for genre in flix.genres.all %}
+            <span style="padding:3px 10px; border-radius:100px; font-size:0.65rem; font-weight:700;
+                         background:{% cycle 'rgba(108,99,255,0.18)' 'rgba(78,205,196,0.14)' 'rgba(139,130,255,0.18)' 'rgba(61,217,208,0.14)' 'rgba(93,84,217,0.18)' %};
+                         color:{% cycle '#8b82ff' '#4ECDC4' '#a89fff' '#3dd9d0' '#7b72ff' %};">
+                {{ genre.name }}
+            </span>
+            {% empty %}
+            <span class="font-[Manrope] text-xs" style="color:#1e2a38;">No genres</span>
+            {% endfor %}
+        </div>
+        <!-- Badge de status -->
+        <span style="padding:3px 10px; border-radius:100px; font-size:0.65rem; font-weight:700;
+                     background:{% if flix.status == 'Watched' %}rgba(78,205,196,0.14){% elif flix.status == 'Watching' %}rgba(108,99,255,0.18){% else %}rgba(20,20,30,0.8){% endif %};
+                     color:{% if flix.status == 'Watched' %}#4ECDC4{% elif flix.status == 'Watching' %}#8b82ff{% else %}#2a3548{% endif %};">
+            {{ flix.status }}
+        </span>
+    </div>
+</div>
+
+<p class="font-[Manrope] text-xs uppercase" style="color:#4ECDC4; letter-spacing:0.22em; margin-bottom:0.4rem;">Editing</p>
+<h1 class="font-[Outfit] font-bold text-white" style="font-size:1.6rem; letter-spacing:-0.03em; margin-bottom:0.4rem;">Update details</h1>
+<p class="font-[Manrope] text-sm" style="color:#2a3548;">Changes are saved immediately.</p>
+
+{% if error %}
+<div class="font-[Manrope] text-sm" style="margin-top:1rem; padding:10px 14px; border-radius:6px;
+     background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.2); color:#f87171;">
+    {{ error }}
+</div>
+{% endif %}
+{% endblock heading %}
+
+{% block form_fields %}
+<!-- instance=flix en la vista precarga todos los campos incluidos los géneros (ManyToMany) -->
+<form method="post" action="{% url 'flix_update' flix.id %}" style="display:flex; flex-direction:column; gap:1.25rem;" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% for field in flix_form %}
+    <div>
+        <label for="{{ field.id_for_label }}"
+               class="font-[Manrope] text-xs uppercase font-semibold"
+               style="display:block; color:#2a3548; letter-spacing:0.16em; margin-bottom:0.5rem;">
+            {{ field.label }}{% if field.field.required %} <span style="color:#4ECDC4;">*</span>{% endif %}
+        </label>
+        {{ field }}
+        {% if field.errors %}
+        <p class="font-[Manrope] text-xs" style="color:#f87171; margin-top:4px;">{{ field.errors }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="flex" style="gap:0.75rem; padding-top:0.75rem; border-top:1px solid #161628;">
+        <button type="submit" class="btn-primary flex-1">Save Changes</button>
+        <button type="reset" class="btn-ghost" style="padding:10px 18px;">Reset</button>
+        <a href="/flixs/" class="btn-ghost" style="padding:10px 18px; display:inline-flex; align-items:center;">Cancel</a>
+    </div>
+</form>
+{% endblock form_fields %}

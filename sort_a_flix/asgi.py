@@ -1,5 +1,5 @@
 """
-ASGI config for rent_a_flick project.
+ASGI config for rent_a_flix project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sort_a_flick.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sort_a_flix.settings')
 
 application = get_asgi_application()

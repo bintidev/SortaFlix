@@ -21,9 +21,9 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Flick',
+            name='Flix',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='Flick ID')),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='Flix ID')),
                 ('cover_image', models.ImageField(default='covers/default.jpg', upload_to='covers/', verbose_name='Cover Image')),
                 ('title', models.CharField(max_length=100, verbose_name='Title')),
                 ('director', models.CharField(default='Unknown', max_length=100, verbose_name='Director')),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='Rental ID')),
                 ('rental_date', models.DateField(auto_now_add=True, verbose_name='Rental Date')),
                 ('return_date', models.DateField(blank=False, null=False, verbose_name='Return Date')),
-                ('flick', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='saf_start.flick', verbose_name='Flick')),
+                ('flick', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='saf_start.flix', verbose_name='Flix')),
             ],
         ),
     ]

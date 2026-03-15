@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from saf_start.models import Flick, Platform, Availability
+from saf_start.models import Flix, Platform, Availability
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 FIELD_CLASS = 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none'
@@ -48,10 +48,10 @@ class SigninForm(AuthenticationForm):
     
 
 
-# formulario basado en el modelo Flicks
-class FlickForm(ModelForm):
+# formulario basado en el modelo Flixs
+class FlixForm(ModelForm):
     class Meta:
-        model = Flick
+        model = Flix
         fields = ['cover_image', 'title', 'director', 'year', 'genres', 'rating', 'duration', 'synopsis', 'status']
 
         # estilos de campos personalizados
@@ -78,7 +78,7 @@ class FlickForm(ModelForm):
             }),
 
             'genres': forms.CheckboxSelectMultiple(attrs={
-                'class': 'text-black focus:ring-[#6C63FF]'
+                'class': 'text-white focus:ring-[#6C63FF]'
             }),
 
             'rating': forms.NumberInput(attrs={
@@ -110,11 +110,11 @@ class FlickForm(ModelForm):
             }),
         }
 
-# formulario basado en el modelo Flicks
+# formulario basado en el modelo Flixs
 class PlatformForm(ModelForm):
     class Meta:
         model = Platform
-        fields = ['name', 'delivery_type']
+        fields = ['name', 'delivery_type', 'logo', 'parent', 'areas_served', 'url', 'description']
 
         widgets = {
             'name': forms.TextInput(attrs={
@@ -153,14 +153,14 @@ class PlatformForm(ModelForm):
             }),
         }
 
-# formulario basado en el modelo Flicks
+# formulario basado en el modelo Flixs
 class AvailabilityForm(ModelForm):
     class Meta:
         model = Availability
-        fields = ['flick', 'platform', 'price']
+        fields = ['flix', 'platform', 'price']
 
         widgets = {
-            'flick': forms.Select(attrs={
+            'flix': forms.Select(attrs={
                 'class': 'w-full px-4 py-3 bg-[#0F0F1E] border border-gray-700 rounded-lg text-white focus:border-[#6C63FF] focus:ring-2 focus:ring-[#6C63FF] focus:outline-none'
             }),
 

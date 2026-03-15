@@ -1,5 +1,5 @@
 """
-WSGI config for rent_a_flick project.
+WSGI config for rent_a_flix project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sort_a_flick.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sort_a_flix.settings')
 
 application = get_wsgi_application()

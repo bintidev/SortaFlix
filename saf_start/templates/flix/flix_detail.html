@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>{{ flix.title }} — RentAFlix</title>{% endblock %}
+
+{% block content %}
+<div class="font-[Manrope] fade-up" style="padding:3rem; max-width:960px; margin:0 auto;">
+
+    <a href="{% url 'flixs' %}" class="btn-ghost" style="font-size:0.75rem; padding:7px 14px; display:inline-flex; align-items:center; gap:5px; margin-bottom:2.5rem;">
+        ← Back to Flixs
+    </a>
+
+    <div style="display:grid; grid-template-columns:180px 1fr; gap:2.5rem; align-items:start;">
+
+        <!-- Portada -->
+        {% if flix.cover_image %}
+        <img src="{{ flix.cover_image.url }}" alt="{{ flix.title }}"
+             style="width:180px; aspect-ratio:2/3; object-fit:cover; border-radius:8px;
+                    box-shadow:0 10px 40px rgba(0,0,0,0.6);">
+        {% else %}
+        <div style="width:180px; aspect-ratio:2/3; background:#0e0e1c; border-radius:8px;
+                    border:1px solid #13131f; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:32px; height:32px; color:#1e2a38;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.375 19.5h17.25M3.375 4.5h17.25M9 12h6"/></svg>
+        </div>
+        {% endif %}
+
+        <!-- Info -->
+        <div>
+            <p class="font-[Manrope] text-xs uppercase" style="color:#4ECDC4; letter-spacing:0.25em; margin-bottom:0.5rem;">
+                {% if flix.director %}{{ flix.director }} · {% endif %}{{ flix.year }}
+            </p>
+            <h1 class="font-[Outfit] font-bold text-white"
+                style="font-size:clamp(1.8rem,4vw,2.8rem); letter-spacing:-0.04em; line-height:1.05; margin-bottom:1rem;">
+                {{ flix.title }}
+            </h1>
+
+            <!-- Meta -->
+            <div class="flex flex-wrap" style="gap:0.75rem; margin-bottom:1.25rem;">
+                <span class="font-[Manrope] text-xs" style="color:#2a3548;">{{ flix.duration }} min</span>
+                {% if flix.rating %}
+                <span class="font-[Manrope] text-xs" style="color:#2a3548;">⭐ {{ flix.rating }}</span>
+                {% endif %}
+                <span style="padding:2px 10px; border-radius:100px; font-size:0.7rem; font-weight:600;
+                             background:{% if flix.status == 'Watched' %}rgba(78,205,196,0.12){% elif flix.status == 'Watching' %}rgba(139,130,255,0.12){% else %}rgba(20,20,30,0.8){% endif %};
+                             color:{% if flix.status == 'Watched' %}#4ECDC4{% elif flix.status == 'Watching' %}#8b82ff{% else %}#3a4a5c{% endif %};">
+                    {{ flix.status }}
+                </span>
+            </div>
+
+            <!-- Géneros -->
+            {% if flix.genres.all %}
+            <div class="flex flex-wrap" style="gap:0.5rem; margin-bottom:1.5rem;">
+                {% for genre in flix.genres.all %}
+                <span style="padding:4px 12px; border-radius:100px; font-size:0.7rem; font-weight:600;
+                             background:{% cycle 'rgba(108,99,255,0.15)' 'rgba(78,205,196,0.12)' 'rgba(139,130,255,0.15)' 'rgba(61,217,208,0.12)' 'rgba(93,84,217,0.15)' %};
+                             color:{% cycle '#8b82ff' '#4ECDC4' '#a89fff' '#3dd9d0' '#7b72ff' %};">
+                    {{ genre.name }}
+                </span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Sinopsis -->
+            {% if flix.synopsis %}
+            <p class="font-[Manrope]" style="color:#3a4a5c; line-height:1.75; font-size:0.9rem; margin-bottom:2rem; max-width:480px;">
+                {{ flix.synopsis }}
+            </p>
+            {% endif %}
+
+            <!-- Acciones -->
+            <div class="flex flex-wrap" style="gap:0.75rem;">
+                <a href="{% url 'flix_update' flix.id %}" class="btn-primary">Edit Flix</a>
+                <a href="{% url 'flix_delete' flix.id %}" class="btn-ghost"
+                   style="color:#f87171; border-color:rgba(248,113,113,0.25);"
+                   onmouseover="this.style.borderColor='#f87171'; this.style.background='rgba(248,113,113,0.07)';"
+                   onmouseout="this.style.borderColor='rgba(248,113,113,0.25)'; this.style.background='transparent';">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

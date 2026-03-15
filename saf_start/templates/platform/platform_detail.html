@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>{{ platform.name }} — RentAFlix</title>{% endblock %}
+
+{% block content %}
+<div class="font-[Manrope] fade-up" style="padding:3rem; max-width:900px; margin:0 auto;">
+
+    <a href="/platforms/" class="btn-ghost" style="font-size:0.75rem; padding:7px 14px;
+       display:inline-flex; align-items:center; gap:5px; margin-bottom:2.5rem;">
+        ← Platforms
+    </a>
+
+    <!-- Header: logo + nombre + tipo -->
+    <div class="flex items-start"
+         style="gap:1.5rem; padding-bottom:2.5rem; margin-bottom:2.5rem; border-bottom:1px solid #0f0f1a;">
+        {% if platform.logo %}
+        <div style="width:64px; height:64px; background:#0a0a16; border:1px solid #13131f;
+                    border-radius:10px; display:flex; align-items:center; justify-content:center;
+                    flex-shrink:0; overflow:hidden;">
+            <img src="{{ platform.logo.url }}" alt="{{ platform.name }}"
+                 class="object-contain" style="width:44px; height:44px;">
+        </div>
+        {% endif %}
+        <div>
+            <p class="font-[Manrope] text-xs uppercase" style="color:#4ECDC4; letter-spacing:0.25em; margin-bottom:0.4rem;">
+                {{ platform.delivery_type }}
+            </p>
+            <h1 class="font-[Outfit] font-bold text-white"
+                style="font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-0.04em; line-height:1; margin-bottom:0.3rem;">
+                {{ platform.name }}
+            </h1>
+            {% if platform.parent %}
+            <p class="font-[Manrope] text-sm" style="color:#2a3548;">{{ platform.parent }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Grid de datos -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:#0f0f1a; margin-bottom:2.5rem;">
+
+        {% if platform.url %}
+        <div style="background:#0e0e1c; padding:1.25rem;">
+            <p class="font-[Manrope] text-xs uppercase" style="color:#1a2434; letter-spacing:0.16em; margin-bottom:0.5rem;">Website</p>
+            <a href="{{ platform.url }}" target="_blank"
+               class="font-[Manrope] text-sm" style="color:#6C63FF; word-break:break-all; text-decoration:none;"
+               onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                {{ platform.url }}
+            </a>
+        </div>
+        {% endif %}
+
+        {% if platform.areas_served %}
+        <div style="background:#0e0e1c; padding:1.25rem;">
+            <p class="font-[Manrope] text-xs uppercase" style="color:#1a2434; letter-spacing:0.16em; margin-bottom:0.5rem;">Areas Served</p>
+            <p class="font-[Manrope] text-sm text-white">{{ platform.areas_served }}</p>
+        </div>
+        {% endif %}
+
+        {% if platform.description %}
+        <div style="background:#0e0e1c; padding:1.25rem; grid-column:1 / -1;">
+            <p class="font-[Manrope] text-xs uppercase" style="color:#1a2434; letter-spacing:0.16em; margin-bottom:0.5rem;">Description</p>
+            <p class="font-[Manrope] text-sm" style="color:#3a4a5c; line-height:1.7;">{{ platform.description }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Flicks disponibles en esta plataforma -->
+    {% if availabilities %}
+    <div style="margin-bottom:2.5rem;">
+        <p class="font-[Outfit] font-semibold text-white" style="margin-bottom:1rem;">Available Flicks</p>
+        {% for av in availabilities %}
+        <div class="list-row flex items-center justify-between" style="padding:0.9rem 0;">
+            <p class="font-[Manrope] text-sm" style="color:#94a3b8;">{{ av.flix.title }}</p>
+            {% if av.price %}
+            <span class="font-[Manrope] text-sm font-bold" style="color:#4ECDC4;">${{ av.price }}</span>
+            {% else %}
+            <span class="font-[Manrope] text-sm" style="color:#13131f;">—</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Botón editar (solo para el dueño) -->
+    {% if platform.user == request.user %}
+    <a href="/platforms/{{ platform.id }}/update/" class="btn-primary">Edit Platform</a>
+    {% endif %}
+
+</div>
+{% endblock content %}

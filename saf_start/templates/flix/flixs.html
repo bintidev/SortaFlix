@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>Flixs — RentAFlix</title>{% endblock title %}
+
+{% block content %}
+<div class="font-[Manrope] fade-up" style="padding:3rem; max-width:1400px; margin:0 auto;">
+
+    <div class="flex items-end justify-between flex-wrap"
+         style="padding-bottom:2rem; margin-bottom:2.5rem; border-bottom:1px solid #0f0f1a; gap:1rem;">
+        <div>
+            <p class="font-[Manrope] text-xs uppercase" style="color:#4ECDC4; letter-spacing:0.28em; margin-bottom:0.5rem;">— Collection</p>
+            <h1 class="font-[Outfit] font-bold text-white"
+                style="font-size:clamp(2rem,5vw,2.8rem); letter-spacing:-0.04em; line-height:1;">Flixs</h1>
+        </div>
+        <a href="/flixs/add/" class="btn-primary">+ Add flix</a>
+    </div>
+
+    {% if flixs %}
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:1.5rem;">
+        {% for flix in flixs %}
+        <a href="{% url 'flix_detail' flix.id %}" style="text-decoration:none; display:block;"
+           onmouseover="this.querySelector('img,div.poster-ph').style.transform='scale(1.04)'; this.querySelector('img,div.poster-ph').style.boxShadow='0 10px 30px rgba(0,0,0,0.7)';"
+           onmouseout="this.querySelector('img,div.poster-ph').style.transform='scale(1)'; this.querySelector('img,div.poster-ph').style.boxShadow='0 2px 8px rgba(0,0,0,0.4)';">
+            {% if flix.cover_image %}
+            <img src="{{ flix.cover_image.url }}" alt="{{ flix.title }}"
+                 style="width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:6px;
+                        display:block; margin-bottom:0.65rem;
+                        transition:transform 0.25s ease, box-shadow 0.25s ease;
+                        box-shadow:0 2px 8px rgba(0,0,0,0.4);">
+            {% else %}
+            <div class="poster-ph"
+                 style="width:100%; aspect-ratio:2/3; background:#0e0e1c; border-radius:6px;
+                        display:flex; align-items:center; justify-content:center; margin-bottom:0.65rem;
+                        border:1px solid #13131f;
+                        transition:transform 0.25s ease, box-shadow 0.25s ease;
+                        box-shadow:0 2px 8px rgba(0,0,0,0.4);">
+                <svg style="width:24px; height:24px; color:#1e2a38;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.375 19.5h17.25M3.375 4.5h17.25M9 12h6"/></svg>
+            </div>
+            {% endif %}
+            <p class="text-white font-semibold truncate text-sm">{{ flix.title }}</p>
+            <p class="font-[Manrope] text-xs" style="color:#2a3548; margin-top:2px;">
+                {{ flix.year }}
+                <span style="margin-left:5px; padding:2px 8px; border-radius:100px; font-size:0.6rem; font-weight:600;
+                             background:{% if flix.status == 'Watched' %}rgba(78,205,196,0.12){% elif flix.status == 'Watching' %}rgba(139,130,255,0.12){% else %}rgba(20,20,30,0.8){% endif %};
+                             color:{% if flix.status == 'Watched' %}#4ECDC4{% elif flix.status == 'Watching' %}#8b82ff{% else %}#2a3548{% endif %};">
+                    {{ flix.status }}
+                </span>
+            </p>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center; padding:6rem 0;">
+        <p class="font-[Manrope] text-sm" style="color:#1e2a38; margin-bottom:1.5rem;">No flixs yet.</p>
+        <a href="/flixs/add/" class="btn-primary">Add your first flix</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

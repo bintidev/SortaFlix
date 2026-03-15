@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>Eliminar {{ flix.title }} — RentAFlix</title>{% endblock %}
+
+{% block content %}
+
+<!--
+    Página de confirmación de borrado
+-->
+
+<!-- Fondo oscuro superpuesto — cubre toda la pantalla -->
+<div style="position: fixed; inset: 0; background: rgba(9,9,20,0.82);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 40; padding: 1.5rem;">
+
+    <!-- Cuadro de confirmación -->
+    <div class="w-full max-w-sm font-[Manrope]"
+         style="background: #0f0f1e; border: 1px solid #2e2e50; border-radius: 10px; overflow: hidden;">
+
+        <!-- Franja de acento — igual que en los formularios -->
+        <div class="w-full h-px bg-gradient-to-r from-[#6C63FF] to-[#4ECDC4]"></div>
+
+        <div class="p-8">
+
+            <!-- Icono de advertencia -->
+            <div class="flex items-center justify-center w-12 h-12 rounded-full mx-auto mb-6"
+                 style="background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.25);">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-10" fill="none"
+                     viewBox="0 0 24 24" stroke="#f87171" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71
+                             c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898
+                             0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/>
+                </svg>
+            </div>
+
+            <!-- Título -->
+            <h2 class="font-[Outfit] font-bold text-white text-xl text-center mb-2">
+                Delete this flix?
+            </h2>
+
+            <!-- Descripción con el nombre del flix en blanco -->
+            <p class="text-sm text-center mb-1"
+               style="color: #475569; line-height: 1.6;">
+                You are about to delete
+            </p>
+            <p class="font-[Outfit] font-semibold text-white text-center mb-6">
+                {{ flix.title }}
+            </p>
+            <p class="text-xs text-center mb-8" style="color: #2e2e50;">
+                This action cannot be undone.
+            </p>
+
+            <!-- Botones -->
+            <div class="flex gap-3">
+
+                <!--
+                    Confirmar: formulario POST a la misma URL de borrado.
+                -->
+                <form method="post" action="{% url 'flix_delete' flix.id %}" class="flex-1">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="w-full text-sm font-semibold text-white py-3 rounded transition-colors cursor-pointer font-[Manrope]"
+                            style="background: #dc2626; border: none;"
+                            onmouseover="this.style.background='#b91c1c'"
+                            onmouseout="this.style.background='#dc2626'">
+                        Delete
+                    </button>
+                </form>
+
+                <!--
+                    Cancelar: enlace <a> normal que vuelve al detalle.
+                -->
+                <a href="{% url 'flix_detail' flix.id %}"
+                   class="flex-1 flex items-center justify-center text-sm font-semibold rounded transition-colors font-[Manrope]"
+                   style="color: #475569; border: 1px solid #2e2e50; text-decoration: none;"
+                   onmouseover="this.style.color='#e2e8f0'; this.style.borderColor='#4a4a70'"
+                   onmouseout="this.style.color='#475569'; this.style.borderColor='#2e2e50'">
+                    Cancel
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Info del flix de fondo (visible debajo del overlay) -->
+<div class="px-6 md:px-16 py-10 font-[Manrope]" style="max-width: 900px; margin: 0 auto;">
+    <div class="flex flex-wrap items-start gap-8 opacity-50">
+        {% if flix.cover_image %}
+        <img src="{{ flix.cover_image.url }}" alt="{{ flix.title }}"
+             class="object-cover rounded-lg shrink-0"
+             style="width: 140px; height: 200px;">
+        {% endif %}
+        <div>
+            <p class="text-xs uppercase mb-2 font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em;">
+                {% if flix.director %}{{ flix.director }} · {% endif %}{{ flix.year }}
+            </p>
+            <h1 class="font-[Outfit] font-bold text-white mb-4"
+                style="font-size: clamp(1.6rem, 4vw, 2.4rem); letter-spacing: -0.03em;">
+                {{ flix.title }}
+            </h1>
+            {% if flix.genres.all %}
+            <div class="flex flex-wrap gap-2">
+                {% for genre in flix.genres.all %}
+                <span class="text-xs font-semibold px-3 py-1 rounded-full"
+                      style="background: rgba(108,99,255,0.15); color: #8b82ff;">
+                    {{ genre.name }}
+                </span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-'''flick: portada, titulo, director, año, género, puntuación, sinopsis, disponibilidad'''
-'''flick_user: username, email, name, password, historial de alquileres'''
+'''flix: portada, titulo, director, año, género, puntuación, sinopsis, disponibilidad'''
+'''flix_user: username, email, name, password, historial de alquileres'''
 '''alquiler: usuario, película, fecha de alquiler, fecha de devolución'''
 '''género: nombre, descripción'''
 
@@ -15,10 +15,10 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-class Flick(models.Model):
+class Flix(models.Model):
 
-    id = models.AutoField(primary_key=True, verbose_name="Flick ID")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True, verbose_name="Flix ID")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     cover_image = models.ImageField(upload_to='covers/', verbose_name="Cover Image", default='covers/default.png', null=True, blank=True)
     title = models.CharField(max_length=100, verbose_name="Title", null=False)
     director = models.CharField(max_length=100, verbose_name="Director", default="Unknown", null=True, blank=True)
@@ -54,10 +54,10 @@ class Platform(models.Model):
 class Availability(models.Model):
     
     id = models.AutoField(primary_key=True, verbose_name="Availability ID")
-    flick = models.ForeignKey(Flick, on_delete=models.CASCADE, verbose_name="Flick")
+    flix = models.ForeignKey(Flix, on_delete=models.CASCADE, verbose_name="Flix")
     platform = models.ForeignKey(Platform, on_delete=models.CASCADE, verbose_name="Platform")
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Price", null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return f"{self.flick.title} on {self.platform.name} - ${self.price}$"
+        return f"{self.flix.title} on {self.platform.name} - ${self.price}$"

@@ -1,68 +1,196 @@
 {% extends 'home.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}<title>Dashboard</title>{% endblock title %}
-</head>
+{% block title %}<title>Dashboard — RentAFlix</title>{% endblock title %}
 
-<body>
-    {% block content %}
-    <div class="flex justify-center align-center items-center">
-        <div class="container mx-auto px-4 py-8">
-            <div class="text-center mb-8">
-                <h1 class="text-6xl font-bold mb-6 text-white font-[Outfit]">Welcome {{ user.username }}</h1>
-                <p class="text-gray-300 font-[Manrope]">Welcome to the Rent-A-Flick dashboard! Here you can manage your
-                    flicks,
-                    platforms, and
-                    availability.</p>
-                <!-- Aquí puedes agregar enlaces rápidos a las secciones de gestión de flicks, plataformas y disponibilidad -->
-                <div class="mt-6 space-x-4 space-y-4 font-[Manrope]">
-                    <button onclick="window.location.href='/flicks/'"
-                        class="bg-[#6c63ff] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(83_74_255)]">Manage
-                        Flicks</button>
-                    <button onclick="window.location.href='/platforms/'"
-                        class="bg-[#3dd9d0] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(69_240_232)]">Manage
-                        Platforms</button>
-                    <button onclick="window.location.href='/availabilities/'"
-                        class="bg-[#8b82ff] text-white font-bold py-2 px-4 rounded transition duration-300 hover:translate-y-[-5px] hover:shadow-[0_0_12px_rgba(139_130_255)]">Manage
-                        Availability</button>
-                </div>
-            </div>
-            
-            <div class="bg-gradient-to-r from-[#6C63FF] to-[#4ECDC4] rounded-lg p-1">
-                <div class="w-full p-6 bg-[#4E4E81] rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff"
-                        class="size-8">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
-                    </svg>
-                    <h1 class="font-[Outfit] text-4xl text-white mb-4">Stats</h1>
-                    <h3 class="font-bold text-2xl text-gray-300">Total flicks:
-                        <span>{{ total }}</span>
-                    </h3>
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex justify-center align-center">
-                        <div class="bg-black-500 py-4 px-6 text-lg text-gray-200">
-                            <h3>Watched</h3>
-                            <p>{{ watched }}</p>
-                        </div>
-                        <div class="bg-black-500 py-4 px-6 text-lg text-gray-200">
-                            <h3>Watching</h3>
-                            <p>{{ watching }}</p>
-                        </div>
-                        <div class="bg-black-500 py-4 px-6 text-lg text-gray-200">
-                            <h3>Watch</h3>
-                            <p>{{ watch }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{% block content %}
+<div class="font-[Manrope]" style="padding: 2.5rem 4rem;">
+
+    <!-- ─── Cabecera ──────────────────────────────────────── -->
+    <div class="flex items-end justify-between flex-wrap"
+         style="border-bottom: 1px solid #1e1e38; padding-bottom: 2rem; margin-bottom: 2.5rem; gap: 1rem;">
+        <div>
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #4ECDC4; letter-spacing: 0.3em; margin-bottom: 0.5rem;">— Dashboard</p>
+            <h1 class="font-[Outfit] font-bold text-white"
+                style="font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: -0.03em; line-height: 1;">
+                {{ user.username }}
+            </h1>
+        </div>
+        <!-- Acciones rápidas -->
+        <div class="flex flex-wrap" style="gap: 0.75rem;">
+            <a href="/flixs/add/"
+               class="text-xs font-semibold text-white font-[Manrope] rounded transition-all duration-300"
+               style="background: #6C63FF; padding: 0.5rem 1.25rem;"
+               onmouseover="this.style.background='#5d54d9'"
+               onmouseout="this.style.background='#6C63FF'">+ Flix</a>
+            <a href="/platforms/add/"
+               class="text-xs font-semibold font-[Manrope] rounded transition-all duration-300"
+               style="color: #4ECDC4; border: 1px solid #4ECDC4; padding: 0.5rem 1.25rem;"
+               onmouseover="this.style.background='#4ECDC4'; this.style.color='#0f0f1e';"
+               onmouseout="this.style.background='transparent'; this.style.color='#4ECDC4';">+ Platform</a>
+            <a href="/availabilities/add/"
+               class="text-xs font-semibold font-[Manrope] rounded transition-all duration-300"
+               style="color: #8892a4; border: 1px solid #3a3a5c; padding: 0.5rem 1.25rem;"
+               onmouseover="this.style.color='#e2e8f0'; this.style.borderColor='#5a5a7c';"
+               onmouseout="this.style.color='#8892a4'; this.style.borderColor='#3a3a5c';">+ Availability</a>
         </div>
     </div>
-    {% endblock content %}
-</body>
 
-</html>
+    <!-- ─── Stat blocks: 6 números grandes ─────────────────── -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr);
+                gap: 1px; background: #1e1e38; border: 1px solid #1e1e38; margin-bottom: 2.5rem;">
+
+        <div style="background: #111120; padding: 1.5rem;">
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em; margin-bottom: 1rem;">Total flicks</p>
+            <p class="font-[Outfit] font-bold text-white"
+               style="font-size: 4rem; line-height: 1;">{{ total }}</p>
+        </div>
+
+        <div style="background: #111120; padding: 1.5rem;">
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em; margin-bottom: 1rem;">Watched</p>
+            <p class="font-[Outfit] font-bold"
+               style="font-size: 4rem; line-height: 1; color: #4ECDC4;">{{ watched }}</p>
+        </div>
+
+        <div style="background: #111120; padding: 1.5rem;">
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em; margin-bottom: 1rem;">Watching</p>
+            <p class="font-[Outfit] font-bold"
+               style="font-size: 4rem; line-height: 1; color: #6C63FF;">{{ watching }}</p>
+        </div>
+
+        <div style="background: #111120; padding: 1.5rem;">
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em; margin-bottom: 1rem;">To watch</p>
+            <p class="font-[Outfit] font-bold"
+               style="font-size: 4rem; line-height: 1; color: #8b82ff;">{{ watch }}</p>
+        </div>
+
+        <div style="background: #111120; padding: 1.5rem;">
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em; margin-bottom: 1rem;">Platforms</p>
+            <p class="font-[Outfit] font-bold text-white"
+               style="font-size: 4rem; line-height: 1;">{{ platform_count }}</p>
+        </div>
+
+        <div style="background: #111120; padding: 1.5rem;">
+            <p class="text-xs uppercase font-[Manrope]"
+               style="color: #475569; letter-spacing: 0.2em; margin-bottom: 1rem;">Availability entries</p>
+            <p class="font-[Outfit] font-bold"
+               style="font-size: 4rem; line-height: 1; color: #3dd9d0;">{{ availability_count }}</p>
+        </div>
+
+    </div>
+
+    <!-- ─── Widgets: listas rápidas ───────────────────────── -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr);
+                gap: 1px; background: #1e1e38; border: 1px solid #1e1e38;">
+
+        <!-- Widget: Flicks recientes -->
+        <div style="background: #111120; padding: 1.5rem;">
+            <div class="flex items-center justify-between" style="margin-bottom: 1.25rem;">
+                <p class="font-[Outfit] font-semibold text-white">Recent Flicks</p>
+                <a href="/flixs/" class="text-xs font-[Manrope]" style="color: #4ECDC4;">All →</a>
+            </div>
+
+            {% if recent_flixs %}
+                {% for flix in recent_flixs %}
+                <a href="/flixs/{{ flix.id }}/detail/"
+                   style="display: flex; align-items: center; gap: 0.75rem;
+                          border-bottom: 1px solid #1e1e38; padding: 0.75rem 0; text-decoration: none;">
+                    {% if flix.cover_image %}
+                    <img src="{{ flix.cover_image.url }}" alt="{{ flix.title }}"
+                         class="object-cover shrink-0"
+                         style="width: 26px; height: 38px;">
+                    {% else %}
+                    <div class="shrink-0" style="width: 26px; height: 38px; background: #1e1e38;"></div>
+                    {% endif %}
+                    <div class="min-w-0">
+                        <p class="text-white text-sm font-medium truncate">{{ flix.title }}</p>
+                        <p class="text-xs font-[Manrope]" style="color: #475569;">
+                            {{ flix.year }} ·
+                            <span>
+                                {{ flix.status }}
+                            </span>
+                        </p>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+            <p class="text-xs font-[Manrope]" style="color: #475569;">
+                Nothing yet. <a href="/flixs/add/" style="color: #6C63FF;">Add one →</a>
+            </p>
+            {% endif %}
+        </div>
+
+        <!-- Widget: Plataformas -->
+        <div style="background: #111120; padding: 1.5rem;">
+            <div class="flex items-center justify-between" style="margin-bottom: 1.25rem;">
+                <p class="font-[Outfit] font-semibold text-white">Platforms</p>
+                <a href="/platforms/" class="text-xs font-[Manrope]" style="color: #4ECDC4;">All →</a>
+            </div>
+
+            {% if recent_platforms %}
+                {% for platform in recent_platforms %}
+                <a href="/platforms/{{ platform.id }}/detail/"
+                   style="display: flex; align-items: center; gap: 0.75rem;
+                          border-bottom: 1px solid #1e1e38; padding: 0.75rem 0; text-decoration: none;">
+                    {% if platform.logo %}
+                    <img src="{{ platform.logo.url }}" alt="{{ platform.name }}"
+                         class="object-contain shrink-0"
+                         style="width: 26px; height: 26px;">
+                    {% else %}
+                    <div class="shrink-0" style="width: 26px; height: 26px; background: #1e1e38;"></div>
+                    {% endif %}
+                    <div class="min-w-0">
+                        <p class="text-white text-sm font-medium truncate">{{ platform.name }}</p>
+                        <p class="text-xs font-[Manrope] truncate" style="color: #475569;">
+                            {{ platform.delivery_type }}
+                        </p>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+            <p class="text-xs font-[Manrope]" style="color: #475569;">
+                Nothing yet. <a href="/platforms/add/" style="color: #6C63FF;">Add one →</a>
+            </p>
+            {% endif %}
+        </div>
+
+        <!-- Widget: Disponibilidad -->
+        <div style="background: #111120; padding: 1.5rem;">
+            <div class="flex items-center justify-between" style="margin-bottom: 1.25rem;">
+                <p class="font-[Outfit] font-semibold text-white">Availability</p>
+                <a href="/availabilities/" class="text-xs font-[Manrope]" style="color: #4ECDC4;">All →</a>
+            </div>
+
+            {% if recent_availabilities %}
+                {% for av in recent_availabilities %}
+                <div style="display: flex; align-items: center; justify-content: space-between;
+                            border-bottom: 1px solid #1e1e38; padding: 0.75rem 0; gap: 0.5rem;">
+                    <div class="min-w-0">
+                        <p class="text-white text-sm font-medium truncate">{{ av.flix.title }}</p>
+                        <p class="text-xs font-[Manrope]" style="color: #475569;">{{ av.platform.name }}</p>
+                    </div>
+                    {% if av.price %}
+                    <span class="text-sm font-bold shrink-0"
+                          style="color: #4ECDC4;">${{ av.price }}</span>
+                    {% else %}
+                    <span class="text-sm shrink-0" style="color: #3a3a5c;">—</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+            <p class="text-xs font-[Manrope]" style="color: #475569;">
+                Nothing yet. <a href="/availabilities/add/" style="color: #6C63FF;">Add one →</a>
+            </p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}

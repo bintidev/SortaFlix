@@ -1,5 +1,5 @@
 """
-URL configuration for rent_a_flick project.
+URL configuration for rent_a_flix project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -27,17 +27,18 @@ urlpatterns = [
     path('signout/', views.signout, name='signout'),
     path('signin/', views.signin, name='signin'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('flicks/', views.flicks, name='flicks'),
-    path('flicks/add/', views.add_flick, name='add_flick'),
-    path('flicks/<int:flick_id>/detail/', views.flick_detail, name='flick_detail'),
-    path('flicks/<int:flick_id>/update/', views.flick_update, name='flick_update'),
-    path('flicks/<int:flick_id>/delete/', views.flick_delete, name='flick_delete'),
+    path('flixs/', views.flixs, name='flixs'),
+    path('flixs/add/', views.add_flix, name='add_flix'),
+    path('flixs/<int:flix_id>/detail/', views.flix_detail, name='flix_detail'),
+    path('flixs/<int:flix_id>/update/', views.flix_update, name='flix_update'),
+    path('flixs/<int:flix_id>/delete/', views.flix_delete, name='flix_delete'),
     path('platforms/', views.platforms, name='platforms'),
     path('platforms/add/', views.add_platform, name='add_platform'),
     path('platforms/<int:platform_id>/detail/', views.platform_detail, name='platform_detail'),
     path('platforms/<int:platform_id>/update/', views.platform_update, name='platform_update'),
-    path('availabilities/', views.availabilities, name='availability'),
+    path('availabilities/', views.availabilities, name='availabilities'),
     path('availabilities/add/', views.add_availability, name='add_availability'),
+    path('availabilities/<int:availability_id>/delete', views.availability_delete, name='availability_delete'),
 ]
 
 # Servir archivos media en desarrollo

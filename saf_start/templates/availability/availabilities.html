@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Availability — RentAFlix</title>{% endblock %}
+
+{% block content %}
+<div class="font-[Manrope] fade-up" style="padding:3rem; max-width:1400px; margin:0 auto;">
+
+    <div class="flex items-end justify-between flex-wrap"
+         style="padding-bottom:2rem; margin-bottom:2rem; border-bottom:1px solid #0f0f1a; gap:1rem;">
+        <div>
+            <p class="font-[Manrope] text-xs uppercase" style="color:#4ECDC4; letter-spacing:0.28em; margin-bottom:0.5rem;">— My availability</p>
+            <h1 class="font-[Outfit] font-bold text-white"
+                style="font-size:clamp(2rem,5vw,2.8rem); letter-spacing:-0.04em; line-height:1;">Availability</h1>
+        </div>
+        <a href="/availabilities/add/" class="btn-primary">+ Add entry</a>
+    </div>
+
+    {% if availabilities %}
+    <!-- Cabeceras -->
+    <div class="font-[Manrope] text-xs uppercase"
+         style="display:grid; grid-template-columns:2.5fr 1.5fr 100px 80px;
+                gap:1rem; padding:0 1.25rem 0.75rem;
+                color:#1a2434; letter-spacing:0.14em; border-bottom:1px solid #0f0f1a;">
+        <span>Flix</span><span>Platform</span><span>Price</span><span></span>
+    </div>
+
+    {% for av in availabilities %}
+    <div class="list-row"
+         style="display:grid; grid-template-columns:2.5fr 1.5fr 100px 80px;
+                gap:1rem; align-items:center; padding:1.1rem 1.25rem;">
+
+        <!-- Flix: cover + title + year -->
+        <div class="flex items-center" style="gap:0.75rem; min-width:0;">
+            {% if av.flix.cover_image %}
+            <img src="{{ av.flix.cover_image.url }}" alt="{{ av.flix.title }}"
+                 class="object-cover shrink-0"
+                 style="width:24px; height:36px; border-radius:3px;">
+            {% else %}
+            <div class="shrink-0" style="width:24px; height:36px; border-radius:3px; background:#13131f;"></div>
+            {% endif %}
+            <div class="min-w-0">
+                <p class="text-white text-sm font-medium truncate">{{ av.flix.title }}</p>
+                <p class="font-[Manrope] text-xs" style="color:#1e2a38;">{{ av.flix.year }}</p>
+            </div>
+        </div>
+
+        <!-- Platform -->
+        <div class="flex items-center" style="gap:0.5rem; min-width:0;">
+            {% if av.platform.logo %}
+            <img src="{{ av.platform.logo.url }}" alt="{{ av.platform.name }}"
+                 class="object-contain shrink-0" style="width:16px; height:16px; border-radius:3px;">
+            {% endif %}
+            <p class="font-[Manrope] text-sm truncate" style="color:#3a4a5c;">{{ av.platform.name }}</p>
+        </div>
+
+        <!-- Precio -->
+        <div>
+            {% if av.price %}
+            <span class="font-[Manrope] text-sm font-bold" style="color:#4ECDC4;">${{ av.price }}</span>
+            {% else %}
+            <span class="font-[Manrope] text-sm" style="color:#13131f;">—</span>
+            {% endif %}
+        </div>
+
+        <!-- Editar -->
+        <div class="flex flex-wrap" style="gap:0.75rem;">
+            <a href="/availabilities/{{ av.id }}/update/"
+               class="font-[Manrope]"
+               style="font-size:0.72rem; padding:5px 12px; border-radius:5px; text-decoration:none;
+                      color:rgba(255,255,255,0.3); border:1px solid #13131f; transition:all 0.2s;"
+               onmouseover="this.style.color='#fff'; this.style.borderColor='#2a2a3e';"
+               onmouseout="this.style.color='rgba(255,255,255,0.3)'; this.style.borderColor='#13131f';">
+                Edit
+            </a>
+            <a href="{% url 'availability_delete' av.id %}"
+               class="btn-ghost font-[Manrope]" style="font-size:0.72rem; color:#f87171;
+               border-color:rgba(248,113,113,0.25); padding:5px 12px; border-radius:5px;"
+                onmouseover="this.style.borderColor='#f87171'; this.style.background='rgba(248,113,113,0.07)';"
+                onmouseout="this.style.borderColor='rgba(248,113,113,0.25)'; this.style.background='transparent';">
+                Delete
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <div style="text-align:center; padding:6rem 0;">
+        <p class="font-[Manrope] text-sm" style="color:#1e2a38; margin-bottom:1.5rem;">No availability entries yet.</p>
+        <a href="/availabilities/add/" class="btn-primary">Add first entry</a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

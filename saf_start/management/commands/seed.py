@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from saf_start.models import Flick, Genre
+from saf_start.models import Flix, Genre
 from django.contrib.auth.models import User
 from django.db import connection
 
@@ -15,18 +15,18 @@ class Command(BaseCommand):
             cursor.execute('PRAGMA foreign_keys = OFF;')
 
         # limpia las relaciones
-        for flick in Flick.objects.all():
-            flick.genres.clear()
+        for flix in Flix.objects.all():
+            flix.genres.clear()
 
-        Flick.objects.all().delete()
+        Flix.objects.all().delete()
         Genre.objects.all().delete()
         User.objects.all().delete()  # Borra TODOS
         
-        print("🎬 Creating fake flicks and users...")
+        print("🎬 Creating fake flixs and users...")
         
         # crear géneros de pelicula
         # se almacenan los objetos en variables para luego hacer referencia a ellos
-        # en el modelo Flick (ManyToMany)
+        # en el modelo Flix (ManyToMany)
         action = Genre.objects.create(name='Action')
         comedy = Genre.objects.create(name='Comedy')
         fantasy = Genre.objects.create(name='Fantasy')
@@ -40,9 +40,9 @@ class Command(BaseCommand):
         supernatural = Genre.objects.create(name='Supernatural')
 
         # crear usuarios
-        iluvflicks = User.objects.create(username='iluvflicks')
-        iluvflicks.set_password('1a2b3c')
-        iluvflicks.save()
+        iluvflixs = User.objects.create(username='iluvflixs')
+        iluvflixs.set_password('1a2b3c')
+        iluvflixs.save()
 
 
         sharperdanaknife = User.objects.create(username='sharperdanaknife')
@@ -56,7 +56,7 @@ class Command(BaseCommand):
 
         
         # crear películas
-        sharper = Flick.objects.create(
+        sharper = Flix.objects.create(
             cover_image='covers/sharper.jpg',
             user=User.objects.get(username='sharperdanaknife'),
             title='Sharper',
@@ -70,7 +70,7 @@ class Command(BaseCommand):
 
         sharper.genres.add(thriller)
 
-        wolverine = Flick.objects.create(
+        wolverine = Flix.objects.create(
             cover_image='covers/wolverine.jpg',
             user=User.objects.get(username='whoiswolvie'),
             title='The Wolverine',
@@ -84,9 +84,9 @@ class Command(BaseCommand):
 
         wolverine.genres.add(thriller, scifi)
 
-        fnaf = Flick.objects.create(
+        fnaf = Flix.objects.create(
             cover_image='covers/fnaf.jpg',
-            user=User.objects.get(username='iluvflicks'),
+            user=User.objects.get(username='iluvflixs'),
             title='Five Nights at Freddy\'s',
             director='Emma Tammi',
             year=2023,
