@@ -2,7 +2,8 @@
 
 SortaFlix es una app sencilla hecha en Django para guardar tus películas, las plataformas donde las ves y el precio si aplica. Ideal para organizar tu colección y saber dónde ver cada título.
 
-<p align="center">🏴󠁧󠁢󠁥󠁮󠁧󠁿 <a href="README.en.md">README English version</a></p>
+<p align="center">🏴󠁧󠁢󠁥󠁮󠁧󠁿 <a href="README.md">README English version</a></p>
+
 ## 🧩 Features
 
 - 🎬 Añadir y organizar películas (portada, título, director, año, géneros, duración, puntuación, estado).
@@ -54,13 +55,10 @@ python manage.py runserver
 Abre http://127.0.0.1:8000/ en tu navegador.
 
 > 🔔 NOTA IMPORTANTE
-
-<p align="center">🇬🇧 <a href="README.en.md">English</a></p>
-
-# SortaFlix — Tu mini cine personal 🎞️✨
-
-SortaFlix es una app sencilla hecha en Django para guardar tus películas, las plataformas donde las ves y el precio si aplica. Ideal para organizar tu colección y saber dónde ver cada título.
-
+>
+> - `media/` está ignorado por Git: las portadas y logos no se suben. Si usas `seed` puede que falten imágenes. Opciones:
+>   - Añadir imágenes de ejemplo versionadas en `media/`, creada manualmente en la raíz del proyecto.
+>   - Editar `seed.py` para usar placeholders (URLs o texto) en vez de ficheros locales.
 > - `db.sqlite3` está en `.gitignore`: en un clon limpio ejecuta `python manage.py migrate` antes de usar la app.
 > - `sort_a_flix/settings.py` incluye una `SECRET_KEY` y `DEBUG = True`. Para producción mueve la clave a una variable de entorno y pon `DEBUG = False`.
 
@@ -105,5 +103,5 @@ Delete modal — Confirmación de borrado
 ---
 
 <p align='center'>
-Made with ❤ by B. · SortaFlix
+Made with ❤ by bintidev · SortaFlix
 </p>
