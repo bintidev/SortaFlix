@@ -1,14 +1,8 @@
-<p align="center">🇪🇸 <a href="README.md">Español</a></p>
-
 # SortaFlix — Your mini personal cinema 🎞️✨
 
 SortaFlix is a small Django app to keep track of your movies, the platforms where you watch them, and prices when applicable. Great for organizing your collection and quickly knowing where to watch each title.
 
-<p align='center'>
-
-[🇪🇸 README Spanish version](README.md)
-
-</p>
+<p align="center">🇪🇸 <a href="README.md">README Spanish version</a></p>
 
 ## 🧩 Features
 
