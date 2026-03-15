@@ -62,7 +62,7 @@ Open http://127.0.0.1:8000/ in your browser.
 > - `db.sqlite3` is in `.gitignore`: run `python manage.py migrate` on a fresh clone.
 > - `sort_a_flix/settings.py` contains a hard-coded SECRET_KEY and `DEBUG = True`. For production move the key to an environment variable and set `DEBUG = False`.
 
-## Screenshots (short captions)
+## 📸 Screenshots
 
 ![Landing — Home page](pictures/home-page.png)
 
