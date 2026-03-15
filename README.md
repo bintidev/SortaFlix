@@ -2,7 +2,7 @@
 
 SortaFlix es una app sencilla hecha en Django para guardar tus películas, las plataformas donde las ves y el precio si aplica. Ideal para organizar tu colección y saber dónde ver cada título.
 
-<p align="center">🏴󠁧󠁢󠁥󠁮󠁧󠁿 <a href="README.md">README English version</a></p>
+<p align="center">🏴󠁧󠁢󠁥󠁮󠁧󠁿 <a href="README.en.md">README English version</a></p>
 
 ## 🧩 Features
 
