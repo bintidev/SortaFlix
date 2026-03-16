@@ -62,6 +62,14 @@ Open http://127.0.0.1:8000/ in your browser.
 > - `db.sqlite3` is in `.gitignore`: run `python manage.py migrate` on a fresh clone.
 > - `sort_a_flix/settings.py` contains a hard-coded SECRET_KEY and `DEBUG = True`. For production move the key to an environment variable and set `DEBUG = False`.
 
+## 🔑 Test users
+
+The `seed` command (saf_start/management/commands/seed.py) creates several example users. You can use these to sign in:
+
+- Username: `iluvflixs` — Password: `1a2b3c`
+- Username: `sharperdanaknife` — Password: `!tsaKnifee`
+- Username: `whoiswolvie` — Password: `bubwudah3lly`
+
 ## 📸 Screenshots
 
 ![Landing — Home page](pictures/home-page.png)
@@ -92,6 +100,10 @@ Platforms — Platforms list
 
 Platform detail — Info page
 
+![Edit plataform](pictures/platform-update.png)
+
+Edit platform — Platform edit form
+
 ![Availabilities](pictures/availabilities.png)
 
 Availabilities — Prices & availability
@@ -102,4 +114,6 @@ Delete modal — Confirmation
 
 ---
 
-Made with ❤ · SortaFlix
+<p align='center'>
+Made with ❤ by bintidev · SortaFlix
+</p>

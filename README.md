@@ -62,6 +62,14 @@ Abre http://127.0.0.1:8000/ en tu navegador.
 > - `db.sqlite3` está en `.gitignore`: en un clon limpio ejecuta `python manage.py migrate` antes de usar la app.
 > - `sort_a_flix/settings.py` incluye una `SECRET_KEY` y `DEBUG = True`. Para producción mueve la clave a una variable de entorno y pon `DEBUG = False`.
 
+## 🔑 Datos de usuario de prueba
+
+El comando `seed` (saf_start/management/commands/seed.py) crea varios usuarios de ejemplo. Úsalos para iniciar sesión:
+
+- Usuario: `iluvflixs` — Contraseña: `1a2b3c`
+- Usuario: `sharperdanaknife` — Contraseña: `!tsaKnifee`
+- Usuario: `whoiswolvie` — Contraseña: `bubwudah3lly`
+
 ## 📸 Capturas
 
 ![Landing — Home page](pictures/home-page.png)
@@ -91,6 +99,10 @@ Platforms — Lista de plataformas
 ![Detalle plataforma](pictures/platform-detail.png)
 
 Platform detail — Información de la plataforma
+
+![Editar plataforma](pictures/platform-update.png)
+
+Edit platform — Formulario de edición
 
 ![Disponibilidades](pictures/availabilities.png)
 
