@@ -57,7 +57,7 @@ Abre http://127.0.0.1:8000/ en tu navegador.
 > 🔔 NOTA IMPORTANTE
 >
 > - `media/` está ignorado por Git: las portadas y logos no se suben. Si usas `seed` puede que falten imágenes. Opciones:
->   - Añadir imágenes de ejemplo versionadas en `media/`, creada manualmente en la raíz del proyecto.
+>   - Añadir imágenes de ejemplo versionadas en `media/`, creada manualmente en la raíz del proyecto y, dentro de esta, dos subdirectorios `covers/` y `platform_logos/`.
 >   - Editar `seed.py` para usar placeholders (URLs o texto) en vez de ficheros locales.
 > - `db.sqlite3` está en `.gitignore`: en un clon limpio ejecuta `python manage.py migrate` antes de usar la app.
 > - `sort_a_flix/settings.py` incluye una `SECRET_KEY` y `DEBUG = True`. Para producción mueve la clave a una variable de entorno y pon `DEBUG = False`.

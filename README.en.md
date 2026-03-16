@@ -57,7 +57,7 @@ Open http://127.0.0.1:8000/ in your browser.
 > 🔔 IMPORTANT NOTE
 >
 > - The `media/` folder is ignored by Git: cover images and logos are not included. If you run `seed` some images may be missing. Options:
->   - Add example images in a versioned folder like `media_example/`.
+>   - Add example images in a versioned folder like `media/` and, within it, two subdirectories `covers/` and `platform_logos/`.
 >   - Edit `seed.py` to use placeholders (URLs or text) instead of local files.
 > - `db.sqlite3` is in `.gitignore`: run `python manage.py migrate` on a fresh clone.
 > - `sort_a_flix/settings.py` contains a hard-coded SECRET_KEY and `DEBUG = True`. For production move the key to an environment variable and set `DEBUG = False`.
